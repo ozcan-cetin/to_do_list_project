@@ -23,3 +23,11 @@ list.addEventListener("click" ,(e)=>{
         (e.target.closest(".line").style.display="none")
     }
 })
+
+add.addEventListener("click",addition)
+    
+text.addEventListener("keydown",(e)=>{
+        if(e.code==="Enter"){
+            addition()
+        }
+    });
