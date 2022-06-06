@@ -31,3 +31,26 @@ text.addEventListener("keydown",(e)=>{
             addition()
         }
     });
+
+function addition(){
+    if(text.value){
+    list.innerHTML+=
+    `<div class="line">
+        <div class="subline">
+            <input class="checkbox" type="checkbox">
+            <span>${text.value}</span>
+        </div>
+        <div><button class="remove">REMOVE</button></div>
+        </div>`
+        warning.innerText=""
+        text.value="";
+    }else{
+        warning.innerText="Please enter a note"
+    }
+    totalCount++
+    };
+
+//* CLEAR SECTION *//
+clearBtn.addEventListener("click",()=>{
+    list.innerHTML=""
+});
