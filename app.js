@@ -1,28 +1,30 @@
 //* VARIABLES *//
-let text =document.querySelector("#text");
-let add = document.querySelector(".add");
-let list = document.querySelector(".list");
-let warning = document.querySelector(".warning");
-let clearBtn = document.querySelector("#clearBtn");
-
-let totalCount=0;
-let checkedCount=0;
+let text =document.querySelector("#text"); //todo
+let add = document.querySelector(".add"); //addtask
+let list = document.querySelector(".list"); //tasks
+let warning = document.querySelector(".warning"); 
+let clearBtn = document.querySelector("#clearBtn"); 
 
 //* FUNCTIONS *//
 list.addEventListener("click" ,(e)=>{
-    if(e.target.classList.contains("checkbox")){
-        if(e.target.checked){
+    // console.log(e.target);
+    if(e.target.classList.contains("fa-marker")){
             e.target.nextElementSibling.style.textDecoration="line-through";
-            checkedCount++
-        }else{
+            e.target.className = "fa-solid fa-check";}
+    else if (e.target.classList.contains('fa-check')) {
             e.target.nextElementSibling.style.textDecoration="none";
-            checkedCount--
+            e.target.className = 'fa-solid fa-marker';
+    }else if (e.target.classList.contains('fa-trash-can')){
+        if(e.target.parentElement.previousElementSibling.firstElementChild.classList.contains("fa-marker")){
+            alert("Please complete the task.")
+        }else{
+            if(confirm("Do you want to delete the task?"))
+            e.target.closest(".line").remove()
         }
+        
     }
-    else if(e.target.classList.contains("remove")){
-        (e.target.closest(".line").style.display="none")
-    }
-})
+}
+)
 
 add.addEventListener("click",addition)
     
@@ -37,20 +39,25 @@ function addition(){
     list.innerHTML+=
     `<div class="line">
         <div class="subline">
-            <input class="checkbox" type="checkbox">
+        <i class="fa-solid fa-marker"></i>
             <span>${text.value}</span>
         </div>
-        <div><button class="remove">REMOVE</button></div>
+        <div><i class="fa-solid fa-trash-can"></i></div>
         </div>`
         warning.innerText=""
         text.value="";
     }else{
         warning.innerText="Please enter a note"
     }
-    totalCount++
-    };
+};
+
+
 
 //* CLEAR SECTION *//
 clearBtn.addEventListener("click",()=>{
-    list.innerHTML=""
+    if(list.innerHTML){
+        if(confirm("Do you want to delete all tasks?"))
+        list.innerHTML=""
+    }
 });
+
